@@ -16,10 +16,11 @@ return new class extends Migration
             $table->string('name');
             $table->longText('description')->nullable();
             $table->foreignId('owner_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('last_message_id')->nullable();
             $table->timestamps();
         });
-
-        Schema::create('groups_users', function (Blueprint $table) {
+    
+        Schema::create('group_users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('group_id')->constrained('groups')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
@@ -32,7 +33,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('groups_users');
+        Schema::dropIfExists('group_users');
         Schema::dropIfExists('groups');
     }
 };
